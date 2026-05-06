@@ -15,7 +15,7 @@ async function loadTableRows() {
     if (document.getElementById('soulModCheckbox').checked) visibleMods.push('soulMod');
 
     if (visibleMods.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="3">No mods selected</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6">No mods selected</td></tr>';
         return;
     }
 
@@ -25,11 +25,13 @@ async function loadTableRows() {
         const rows = tableBody.querySelectorAll('tr');
         npcs.forEach(npc => {
         // IF STATEMENT: Only add the row if the ID is in our allowed list
-        if (allowedIds.includes(npc.id.toLowerCase())) {
-            const row = tbody.insertRow();
+        if (visibleMods.includes(npc.id.toLowerCase())) {
+            const row = tableBody.insertRow();
             
             // Apply the name to the <tr> element for future reference
             row.id = `row-${npc.name.toLowerCase().replace(/\s/g, '-')}`;
+
+            row.insertCell().innerHTML = `<input type="checkbox" class="npcCheckbox" style="width: 20px; height: 20px;">`;
 
             const imgCell = row.insertCell();
             const img = document.createElement('img');

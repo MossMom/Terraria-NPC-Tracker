@@ -2,6 +2,7 @@
     --bgColor: #06090e;
     --windowBgColor: #06090e;
     --borderColor: #181c1a;
+    --tableBorderColor: #abb7b1;
 }
 
 .boxConstraint {
@@ -33,6 +34,12 @@
 
 #containerTable td {
     vertical-align: top;
+}
+
+#NPCTable td {
+    border-collapse: collapse;
+    border: solid 2px var(--tableBorderColor);
+    vertical-align: middle;
 }
 
 body {

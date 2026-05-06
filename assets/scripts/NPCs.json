@@ -1,0 +1,7 @@
+[
+  { "id": "Vanilla", "name": "Guide", "imgUrl": "images/sprites/guide.png", "likedBiome": "Forest", "dislikedBiome": "Ocean" },
+  { "id": "Vanilla", "name": "Merchant", "imgUrl": "images/sprites/merchant.png", "likedBiome": "Forest", "dislikedBiome": " Desert" },
+  { "id": "Calamity", "name": "Nurse", "imgUrl": "images/sprites/nurse.png", "likedBiome": "Hallow", "dislikedBiome": "Snow" },
+  { "id": "Calamity", "name": "Painter", "imgUrl": "images/sprites/painter.png", "likedBiome": "Jungle", "dislikedBiome": "Forest" },
+  { "id": "Thorium", "name": "Dye Trader", "imgUrl": "images/sprites/dye_trader.png", "likedBiome": "Desert", "dislikedBiome": "Forest" }
+]

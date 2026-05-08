@@ -39,8 +39,13 @@ async function loadTableRows() {
             img.height = 100;
             imgCell.appendChild(img);
 
-            row.insertCell().textContent = npc.name;
-            
+            const nameCell = row.insertCell();
+            const nameWrapper = document.createElement('div');
+            nameWrapper.style.marginLeft = '5px';
+            nameWrapper.style.marginRight = '5px';
+            nameWrapper.appendChild(document.createTextNode(npc.name));
+            nameCell.appendChild(nameWrapper);
+
             // ~~~~~ Liked Biome Cell ~~~~~
             const likedCell = row.insertCell();
             const likedWrapper = document.createElement('div');
@@ -48,6 +53,7 @@ async function loadTableRows() {
             likedWrapper.style.alignItems = 'center';
             likedWrapper.style.height = '124px';
             likedWrapper.style.textAlign = 'left';
+            likedWrapper.style.marginRight = '5px';
 
             if (npc.likedBiome !== 'None' && npc.likedBiome !== 'Any') {
                 const likedBiomeImg = document.createElement('img');
@@ -73,6 +79,7 @@ async function loadTableRows() {
             dislikedWrapper.style.alignItems = 'center';
             dislikedWrapper.style.height = '124px';
             dislikedWrapper.style.textAlign = 'left';
+            dislikedWrapper.style.marginRight = '5px';
             
             if (npc.dislikedBiome !== 'None' && npc.dislikedBiome !== 'Any') {
                 const dislikedBiomeImg = document.createElement('img');
@@ -96,10 +103,12 @@ async function loadTableRows() {
             sourceWrapper.style.alignItems = 'center';
             sourceWrapper.style.height = '124px';
             sourceWrapper.style.textAlign = 'left';
+            sourceWrapper.style.marginRight = '5px';
             
             const sourceImg = document.createElement('img');
             sourceImg.src = `assets/images/sprites/sources/${npc.id.toLowerCase().replace(/\s/g, '_')}.png`;
             sourceImg.height = 25;
+            sourceImg.style.marginRight = '-5px';
             sourceWrapper.appendChild(sourceImg);
 
             sourceWrapper.appendChild(document.createTextNode(npc.id));

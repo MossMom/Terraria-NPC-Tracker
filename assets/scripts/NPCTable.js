@@ -9,10 +9,10 @@ async function loadTableRows() {
     if (document.getElementById('vanillaCheckbox').checked) visibleMods.push('vanilla');
     if (document.getElementById('calamityCheckbox').checked) visibleMods.push('calamity');
     if (document.getElementById('thoriumCheckbox').checked) visibleMods.push('thorium');
-    if (document.getElementById('fargosCheckbox').checked) visibleMods.push('fargos');
-    if (document.getElementById('imkSushisCheckbox').checked) visibleMods.push('imkSushis');
+    if (document.getElementById('fargosCheckbox').checked) visibleMods.push('fargo\'s');
+    if (document.getElementById('alchemistNPCCheckbox').checked) visibleMods.push('alchemistnpc');
     if (document.getElementById('redemptionCheckbox').checked) visibleMods.push('redemption');
-    if (document.getElementById('soulModCheckbox').checked) visibleMods.push('soulMod');
+    if (document.getElementById('bossesCheckbox').checked) visibleMods.push('bosses_as_npcs');
 
     if (visibleMods.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="6">No mods selected</td></tr>';
@@ -25,24 +25,86 @@ async function loadTableRows() {
         const rows = tableBody.querySelectorAll('tr');
         npcs.forEach(npc => {
         // IF STATEMENT: Only add the row if the ID is in our allowed list
-        if (visibleMods.includes(npc.id.toLowerCase())) {
+        if (visibleMods.includes(npc.id.toLowerCase().replace(/\s/g, '_'))) {
             const row = tableBody.insertRow();
             
             // Apply the name to the <tr> element for future reference
-            row.id = `row-${npc.name.toLowerCase().replace(/\s/g, '-')}`;
+            row.id = `row-${npc.name.toLowerCase().replace(/\s/g, '_')}`;
 
             row.insertCell().innerHTML = `<input type="checkbox" class="npcCheckbox" style="width: 20px; height: 20px;">`;
 
             const imgCell = row.insertCell();
             const img = document.createElement('img');
-            img.src = npc.imgUrl;
+            img.src = `assets/images/sprites/${npc.id.toLowerCase().replace(/\s/g, '_')}/${npc.name.toLowerCase().replace(/\s/g, '_')}.png`;
             img.height = 100;
             imgCell.appendChild(img);
 
             row.insertCell().textContent = npc.name;
-            row.insertCell().textContent = npc.likedBiome;
-            row.insertCell().textContent = npc.dislikedBiome;
-            row.insertCell().textContent = npc.id
+            
+            // ~~~~~ Liked Biome Cell ~~~~~
+            const likedCell = row.insertCell();
+            const likedWrapper = document.createElement('div');
+            likedWrapper.style.display = 'flex';
+            likedWrapper.style.alignItems = 'center';
+            likedWrapper.style.height = '124px';
+            likedWrapper.style.textAlign = 'left';
+
+            if (npc.likedBiome !== 'None' && npc.likedBiome !== 'Any') {
+                const likedBiomeImg = document.createElement('img');
+                likedBiomeImg.src = `assets/images/sprites/biomes/${npc.likedBiome.toLowerCase().replace(/\s/g, '_')}.webp`;
+                likedBiomeImg.height = 30;
+                likedBiomeImg.style.marginRight = '-5px';
+                likedWrapper.appendChild(likedBiomeImg);
+            } else {
+                const placeholderImg = document.createElement('img');
+                placeholderImg.src = `assets/images/sprites/biomes/placeholder.webp`;
+                placeholderImg.height = 25;
+                placeholderImg.style.marginRight = '-5px';
+                likedWrapper.appendChild(placeholderImg);
+            }
+            
+            likedWrapper.appendChild(document.createTextNode(npc.likedBiome));
+            likedCell.appendChild(likedWrapper);
+
+            // ~~~~~ Disliked Biome Cell ~~~~~
+            const dislikedCell = row.insertCell();
+            const dislikedWrapper = document.createElement('div');
+            dislikedWrapper.style.display = 'flex';
+            dislikedWrapper.style.alignItems = 'center';
+            dislikedWrapper.style.height = '124px';
+            dislikedWrapper.style.textAlign = 'left';
+            
+            if (npc.dislikedBiome !== 'None' && npc.dislikedBiome !== 'Any') {
+                const dislikedBiomeImg = document.createElement('img');
+                dislikedBiomeImg.src = `assets/images/sprites/biomes/${npc.dislikedBiome.toLowerCase().replace(/\s/g, '_')}.webp`;
+                dislikedBiomeImg.height = 30;
+                dislikedBiomeImg.style.marginRight = '-5px';
+                dislikedWrapper.appendChild(dislikedBiomeImg);
+            } else {
+                const placeholderImg = document.createElement('img');
+                placeholderImg.src = `assets/images/sprites/biomes/placeholder.webp`;
+                placeholderImg.height = 25;
+                placeholderImg.style.marginRight = '-5px';
+                dislikedWrapper.appendChild(placeholderImg);
+            }
+            dislikedWrapper.appendChild(document.createTextNode(npc.dislikedBiome));
+            dislikedCell.appendChild(dislikedWrapper);
+
+            const sourceCell = row.insertCell();
+            const sourceWrapper = document.createElement('div');
+            sourceWrapper.style.display = 'flex';
+            sourceWrapper.style.alignItems = 'center';
+            sourceWrapper.style.height = '124px';
+            sourceWrapper.style.textAlign = 'left';
+            
+            const sourceImg = document.createElement('img');
+            sourceImg.src = `assets/images/sprites/sources/${npc.id.toLowerCase().replace(/\s/g, '_')}.png`;
+            sourceImg.height = 25;
+            sourceWrapper.appendChild(sourceImg);
+
+            sourceWrapper.appendChild(document.createTextNode(npc.id));
+
+            sourceCell.appendChild(sourceWrapper);
         }
     });
     }
@@ -56,9 +118,8 @@ form.addEventListener('submit', (e) => {
     const calamityChecked = document.getElementById('calamityCheckbox').checked;
     const thoriumChecked = document.getElementById('thoriumCheckbox').checked;
     const fargosChecked = document.getElementById('fargosCheckbox').checked;
-    const imkSushisChecked = document.getElementById('imkSushisCheckbox').checked;
     const redemptionChecked = document.getElementById('redemptionCheckbox').checked;
-    const soulModChecked = document.getElementById('soulModCheckbox').checked;
+    const bossesChecked = document.getElementById('bossesCheckbox').checked;
 
     tableBody.innerHTML = ''; // Clear existing table rows
     // Load table rows based on selected mods

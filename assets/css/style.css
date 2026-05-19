@@ -6,7 +6,7 @@
 }
 
 .boxConstraint {
-    width: 800px;
+    width: max-content;
     margin-left: auto;
     margin-right: auto;
 }
@@ -53,15 +53,16 @@ body {
 }
 
 footer {
-    text-align: center;
-    margin-top: auto;
-    border-top: var(--borderColor);
-    background-color: var(--windowBgColor);
-    padding: 5px;
     display: flex;
     flex-direction: column;
-    background-size: auto;
-    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 850px;
+    margin: 20px auto 0 auto;
+    background-color: var(--windowBgColor);
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 table {
@@ -75,6 +76,12 @@ td img {
 
 td details {
     padding-bottom: 10px;
+}
+
+ul {
+    text-align: center;
+    list-style-position: inside;
+    padding: 0;
 }
 
 a:link {
